@@ -123,10 +123,10 @@ def test_getUpdatedRawContract(resource_marketdata_setup):
     assert 1==1
 
 def test_check_raw_data_downloads(resource_roll_setup):
-    from dbutils.panama import check_raw_data_downloads
+    from dbutils.panama import check_raw_data_downloads_v2
     (engine , mkt_ser, rolls) = resource_roll_setup
 
-    df_list = check_raw_data_downloads(engine, mkt_ser, rolls)
+    df_list = check_raw_data_downloads_v2(engine, mkt_ser, rolls)
     for arr in df_list:
         print(arr[0], "-------------------------------------------------------------------------------------------------")
         print(arr[1].head(2))

@@ -117,7 +117,7 @@ class IBclient(object):
             self.cb=callback
 
     
-    def get_IB_historical_data(self, ibcontract, durationStr="1 W", barSizeSetting="1 hour", tickerid=MEANINGLESS_NUMBER, whatToShow="TRADES"):
+    def get_IB_historical_data(self, ibcontract, end_date, durationStr="1 W", barSizeSetting="1 hour", tickerid=MEANINGLESS_NUMBER, whatToShow="TRADES"):
         
         """
         Returns historical prices for a contract, up to today
@@ -152,7 +152,7 @@ class IBclient(object):
                 ibcontract,                                   # contract,
                 #last_yesterday.strftime("%Y%m%d %H:%M:%S %Z"),       # endDateTime,
                 # "20160201 23:00:00 GMT",
-                today.strftime("%Y%m%d %H:%M:%S %Z"),
+                end_date.strftime("%Y%m%d %H:%M:%S %Z"),
                 durationStr,                                      # durationStr,
                 barSizeSetting,                                    # barSizeSetting,
                 whatToShow,                                   # whatToShow,

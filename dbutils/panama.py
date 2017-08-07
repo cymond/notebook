@@ -1,28 +1,29 @@
 from accessrights import q_access_key
 import quandl
 import pandas as pd
-from wrapper_v2 import IBWrapper, IBclient
-from swigibpy import Contract as IBcontract
-import os
-import numpy as np
+
+
 source_path = "quandl_history/"
 destination_path = "data/"
 
-def pretty_print(title, dtFrame, nhead, ntail):
-    print()
-    if nhead > 0:
-        print("Head --------------------------------------------------------------------------")
-        print( title)
-        print(dtFrame.head(nhead))
 
-    if ntail > 0:
+def pretty_print(title, dt_frame, n_head, n_tail):
+    print()
+    if n_head > 0:
+        print("Head --------------------------------------------------------------------------")
+        print(title)
+        print(dt_frame.head(n_head))
+
+    if n_tail > 0:
         print("Tail --------------------------------------------------------------------------")
         print(title)
-        print(dtFrame.tail(ntail))
+        print(dt_frame.tail(n_tail))
         print("-------------------------------------------------------------------------------")
     print()
 
+
 def get_code_from_month(m):
+
     return {
         '01': 'F',
         '02': 'G',
@@ -38,14 +39,15 @@ def get_code_from_month(m):
         '12': 'Z'
     }[m]
 
+
 def get_qndl_string(mkt_ser,maturity):
-    '''
+    """
     :param mkt_ser: Series with elements {CARVER,QUANDL,IB,SECTYPE,CURRENCY,Q_EXCHANGE,IB_EXCHANGE,MULTIPLIER}
     :param maturity:  e.g. 201803
     :return: String to sent to Quandl API
     >>> data=mysqlFuturesData()
     >>> data._get_all_cost_data()
-    '''
+    """
     year = str(maturity)[:4]
     month = str(maturity)[4:6]
     month_code = get_code_from_month(month)
@@ -54,12 +56,14 @@ def get_qndl_string(mkt_ser,maturity):
     api_call_head = '{}/{}{}{}'.format(exchange, symbol, month_code, year)
     return api_call_head
 
+
 def get_ib_contract(mkt_ser,maturity):
     '''
     :param mkt_ser: Series with elements {CARVER,QUANDL,IB,SECTYPE,CURRENCY,Q_EXCHANGE,IB_EXCHANGE,MULTIPLIER}
     :param maturity:  e.g. 201803
     :return: Contract to send to IB API
     '''
+    from swigibpy import Contract as IBcontract
 
     ib_multiplier = mkt_ser['MULTIPLIER']
     ib_security_type = mkt_ser['SECTYPE']
@@ -77,7 +81,8 @@ def get_ib_contract(mkt_ser,maturity):
         ibcontract.includeExpired = True
     return ibcontract
 
-def ib_download(client, mkt_ser, maturity,**kwargs):
+
+def ib_download(client, mkt_ser, maturity, end_date, **kwargs):
     start_date = kwargs.get('start_date')
     counter = 100
     ibcontract = get_ib_contract(mkt_ser, maturity)
@@ -90,7 +95,7 @@ def ib_download(client, mkt_ser, maturity,**kwargs):
         result = result[['FX']]
 
     else:
-        result = client.get_IB_historical_data(ibcontract, "1 M", "1 day", counter)
+        result = client.get_IB_historical_data(ibcontract, end_date, "5 Y", "1 day", counter)
         result.rename(columns={'Date': 'DATETIME', \
                                'Trade Date': 'DATETIME', \
                                'Prev. Day Open Interest': 'Open Interest', \
@@ -107,17 +112,18 @@ def qndl_download(mkt_ser, maturity, **kwargs):
     start_date = kwargs.get('start_date')
     auth_token = q_access_key()
     api_call_head = get_qndl_string(mkt_ser, maturity)
+    #print(maturity, ": ", api_call_head)
     result = quandl.get(api_call_head, returns="pandas", authtoken=auth_token, start_date=start_date)
     # result = quandl.get(api_call_head, returns="pandas", authtoken=auth_token)
     # re = quandl.get
     # rename to Dates to DATETIME
     # and to Settle
-    #print(result)
-    result.rename(columns={'Date': 'DATETIME', \
-                           'Trade Date': 'DATETIME', \
-                           'Prev. Day Open Interest': 'Open Interest', \
-                           'Total Volume': 'Volume', \
-                           'Settle': 'PRICE', \
+    # print(result)
+    result.rename(columns={'Date': 'DATETIME',
+                           'Trade Date': 'DATETIME',
+                           'Prev. Day Open Interest': 'Open Interest',
+                           'Total Volume': 'Volume',
+                           'Settle': 'PRICE',
                            'Current Price': 'PRICE'}, inplace=True)
     result.index.names = ['DATETIME']
     result.reset_index(inplace=True)
@@ -126,13 +132,14 @@ def qndl_download(mkt_ser, maturity, **kwargs):
     frame = result[['PRICE']]
     return frame
 
-def q_download(engine, symbol, maturity,**kwargs):
+
+def q_download(engine, symbol, maturity, **kwargs):
 
     start_date = kwargs.get('start_date')
     auth_token = q_access_key()
     marketdata_df = pd.read_sql_table(table_name="marketdata", con=engine,index_col='CARVER')
-    #market_info = marketdata_df[marketdata_df['CARVER']== symbol]
-    #carver_sym = symbol
+    # market_info = marketdata_df[marketdata_df['CARVER']== symbol]
+    # carver_sym = symbol
     quandl_sym = marketdata_df.loc[symbol]['QUANDL']
     quandl_exchange = marketdata_df.loc[symbol]['Q_EXCHANGE']
     month = str(maturity)[4:6]
@@ -140,8 +147,8 @@ def q_download(engine, symbol, maturity,**kwargs):
     code = get_code_from_month(month)
     api_call_head = '{}/{}{}{}'.format(quandl_exchange, quandl_sym, code, year)
     result = quandl.get(api_call_head, returns="pandas", authtoken=auth_token, start_date=start_date)
-    #result = quandl.get(api_call_head, returns="pandas", authtoken=auth_token)
-    #re = quandl.get
+    # result = quandl.get(api_call_head, returns="pandas", authtoken=auth_token)
+    # re = quandl.get
     # rename to Dates to DATETIME
     # and to Settle
     result.rename(columns={'Trade Date': 'Date', \
@@ -152,12 +159,14 @@ def q_download(engine, symbol, maturity,**kwargs):
     frame  = result[['Settle']]
     return frame
 
+
 def splice_price(base_df,new_df,date):
     import datetime
 
     # Panama splice the two dataframes together on 'date' and return the spliced df
     # First, determine delta between the 2 dfs on the splice date
     # There may be one price or several intra-day prices, BUT the splice is done on the last price of day
+    '''
     next_day = date + datetime.timedelta(1)
 
     basedf_mask = (base_df.index >= date) & (base_df.index < next_day)
@@ -167,20 +176,24 @@ def splice_price(base_df,new_df,date):
 
 
     delta = new_df.loc[newdf_date][0] - base_df.loc[basedf_date][0]
-    #print("delta: ", delta)
+    '''
+    delta = new_df.resample("B").last().loc[date][0] - base_df.resample("B").last().loc[date][0]
+    # print("delta: ", delta)
     # Add this delta to pan_df stream
     # and truncate both dfs at splice date...
 
-    #print(base_df[:date][:-1].tail(5))
+    # print(base_df[:date][:-1].tail(5))
     base_df['PRICE'] = base_df['PRICE'] + delta
-    #print(base_df[:date][:-1].tail(5))
-    appended_df = new_df[newdf_date:].copy()
-    price_df = base_df[:newdf_date][:-1]
-    #print("price: ", len(price_df))
+    # print(base_df[:date][:-1].tail(5))
+    appended_df = new_df[date:].copy()
+    price_df = base_df[:date][:-1]
+    # print("price: ", len(price_df))
     price_df = price_df.append(appended_df).round({'PRICE':10})
     return price_df
 
+
 def splice_carry(base_df, new_price, new_carry, price_mat, carry_mat, date):
+    """
     import datetime
     next_day = date + datetime.timedelta(1)
 
@@ -189,27 +202,29 @@ def splice_carry(base_df, new_price, new_carry, price_mat, carry_mat, date):
     new_price_mask = (new_price.index >= date) & (new_price.index < next_day)
     new_price_date = new_price.index[new_price_mask][-1]
 
+
     new_carry_mask = (new_carry.index >= date) & (new_carry.index < next_day)
     new_carry_date = new_carry.index[new_carry_mask][-1]
-
-    new_price = new_price[new_price_date:].copy()
-    new_carry = new_carry[new_carry_date:].copy()
+    """
+    new_price = new_price[date:].copy()
+    new_carry = new_carry[date:].copy()
 
     append_df = pd.concat([new_price, new_carry], axis=1)
     append_df.columns = ["PRICE", 'CARRY']
     append_df["CARRY_CONTRACT"] = carry_mat
     append_df["PRICE_CONTRACT"] = price_mat
-    carry_df = base_df[:new_price_date][:-1]
-    #print(append_df.tail(5))
-    #print(carry_df.tail(5))
-    #print("price: ", len(carry_df))
+    carry_df = base_df[:date][:-1]
+    # print(append_df.tail(5))
+    # print(carry_df.tail(5))
+    # print("price: ", len(carry_df))
     carry_df = carry_df.append(append_df)
     carry_df.index.names = ['DATETIME']
     carry_df = carry_df[pd.notnull(carry_df['PRICE'])]
     return carry_df
 
+
 def getIBContract(engine, market, curr_contract):
-    '''
+    """
         :param engine:
         :param market:
         :param contract:
@@ -220,7 +235,7 @@ def getIBContract(engine, market, curr_contract):
         3. Update database with newer rows
         4. return the entire current raw data
         2. Update database table.
-        '''
+    """
     price_string = 'Settle'
     to_save = False
     table = market.lower() + str(curr_contract)
@@ -232,6 +247,7 @@ def getIBContract(engine, market, curr_contract):
         print(table, "is not in the database!")
         contract_df = ib_download(engine, market, curr_contract)
 
+
 def prev_weekday(adate):
     from datetime import date, timedelta
     adate -= timedelta(days=1)
@@ -239,19 +255,20 @@ def prev_weekday(adate):
         adate -= timedelta(days=1)
     return adate
 
+
 def check_data_ok(maturity, df, start_date, end_date, match):
     # Will raise an error if splice date that's supposed to be in df is missing (for match = True)
     # Called after a call to quandl or IB
     import datetime
     if not pd.isnull(start_date):
-     #
+                    #
         if start_date.hour == 23:
             start_date_alt = datetime.datetime(start_date.year, start_date.month, start_date.day, 0)
         if start_date.hour == 0:
             start_date_alt = datetime.datetime(start_date.year, start_date.month, start_date.day, 23)
 
     if not pd.isnull(end_date):
-     #
+                    #
         if end_date.hour == 23:
             end_date_alt = datetime.datetime(end_date.year, end_date.month, end_date.day, 0)
         if end_date.hour == 0:
@@ -263,56 +280,417 @@ def check_data_ok(maturity, df, start_date, end_date, match):
 
     if match:
         # Check if splice dates that should be in temp_df are... propagate an error if missing
-        if start_date != "NaT":
+        if start_date == start_date:
             if start_date.date() < last_settlement_date.date() and not \
                     (start_date in df.index or start_date_alt in df.index):
+                print("****", maturity, start_date)
+                print(df.head(40))
                 assert False, maturity + ": Start splice date is missing in database data"
-        if end_date != "NaT":
+        if end_date  == end_date:
             if end_date.date() < last_settlement_date.date() and not \
                     (end_date in df.index or end_date_alt in df.index):
+                print("****", maturity, end_date)
                 assert False, maturity + ": End splice date is missing in database data"
     return True
-    '''
-    today_asdate = datetime.date.today()
-    last_bday = prev_weekday(today_asdate)
-    last_bday_r23 = datetime.datetime(last_bday.year, last_bday.month, last_bday.day, 23)
-    if last_bday == last_settlement_date or last_bday_r23 == last_settlement_date:   # Downloads up to date
-        return True # Data is up to date caller should return df upstream
 
-    return False  # Data is not up to date... download data
+
+def get_raw_legacy_data(engine, market, contract):
+    '''
+    1. Get both carry_contract and pric_contract entries
+    2. If the contract appears in PRICE_CONTRACT check that there is a row corresponding to
+        the following splice date for the contract after combining PRICE and CARRY rows.
+    3. If not - compunte the splice date row from the PRICE series
+    i.e
+    DATE    PRICE CARRY CARRY_CONTRACT PRICE_CONTRACT
+            ...   ...   201103         201106
+            ...   ...   201106         201109    <- splice date   *** can use CARRY price for 201106 price
+
+    DATE    PRICE CARRY CARRY_CONTRACT PRICE_CONTRACT
+            ...   ...   201109         201106
+            ...   ...   201112         201109    <- splice date   *** Must compute 201106 price (from PRICE)
+
+    the contract may also appear in just CARRY_CONTRACT or just PRICE_CONTRACT!
     '''
 
-def get_raw_data_initialize(engine, mkt_ser, maturity, start_date, end_date, match):
-    '''
+    legacy_price_table = "z_" + market.lower() + "_price"
+    legacy_carry_table = "z_" + market.lower() + "_carrydata"
+    try:
+        price_df = pd.read_sql_table(table_name=legacy_price_table, \
+                                     con=engine, index_col=['DATETIME'],
+                                     parse_dates=['DATETIME'])
+        len_price = len(price_df)
+    except Exception as e:
+        # If error, announce and get data from quandl or IB
+        print(legacy_price_table, e, "Error when getting table from database!")
 
-    :param engine: connection to mysql database
-    :param mkt_ser: symbol with quandl and IB market descriptive info
+    try:
+        carry_df = pd.read_sql_table(table_name=legacy_carry_table, \
+                                     con=engine, index_col=['DATETIME'],
+                                     columns=['DATETIME','PRICE','PRICE_CONTRACT', 'CARRY','CARRY_CONTRACT'],
+                                     parse_dates=['DATETIME'])
+        carry_price_contract_df = carry_df[(carry_df['PRICE_CONTRACT'] == contract)]
+        carry_carry_contract_df = carry_df[(carry_df['CARRY_CONTRACT'] == contract)]
+        len_carry_price_contract = len(carry_price_contract_df)
+        len_carry_carry_contract = len(carry_carry_contract_df)
+        len_carry = len(carry_df)
+    except Exception as e:
+        # If error, announce and get data from quandl or IB
+        print(legacy_carry_table, e, "Error when getting table from database!")
+
+
+    if len_carry_carry_contract > 0 and len_carry_price_contract == 0:
+        # df1 = carry_df[(carry_df['CARRY_CONTRACT'] == contract)]
+        carry_carry_contract_df = carry_carry_contract_df[pd.notnull(carry_carry_contract_df['CARRY'])]
+        df = carry_carry_contract_df[['CARRY']].copy()
+        df.rename(columns={'CARRY': 'PRICE'}, inplace=True)
+        df.sort_index(inplace=True)
+        return df
+    elif len_carry_price_contract > 0 and len_carry_carry_contract == 0:
+        # df1 = carry_df[(carry_df['PRICE_CONTRACT'] == contract)]
+        carry_price_contract_df = carry_price_contract_df[pd.notnull(carry_price_contract_df['PRICE'])]
+        df = carry_price_contract_df[['PRICE']].copy()
+        df.sort_index(inplace=True)
+        # determine date of last row i.e. the date before splicing...
+        pre_splice_date = df[-1:].index.values[0]
+        # the next day in the carry stream is the splice date!
+        splice_date = carry_df.loc[pre_splice_date:][1:2].index.values[0]
+        # Get the splice delta from the <panama price> - <raw price> on pre_splice_date
+        # ... get the <panama price> from in price_df and compute delta on pre_splice_date
+        pre_splice_date_raw_price = carry_df.loc[pre_splice_date:][0:1]['PRICE'][0]
+        pre_splice_date_adj_price = price_df.loc[pre_splice_date:][0:1]['PRICE'][0]
+        splice_delta = pre_splice_date_adj_price - pre_splice_date_raw_price
+        # *** the adjusted price was added to the raw price, so it must be taken away from the
+        # *** splice_date price to get the splice date raw price
+        splice_date_price = price_df.loc[splice_date:][0:1]['PRICE'][0]  # This was splice price
+        splice_date_raw_price = splice_date_price - splice_delta
+
+
+        splice_date_row_df = carry_df.loc[splice_date:][0:1].drop(['CARRY', 'CARRY_CONTRACT', 'PRICE_CONTRACT'], 1)
+        splice_date_row_df['PRICE'] = round(splice_date_raw_price, 3)
+        df = df.append(splice_date_row_df)
+        return df
+    elif len_carry_price_contract > 0 and len_carry_carry_contract > 0:
+
+        #d_carry = carry_df[(carry_df['CARRY_CONTRACT'] == contract)]
+        #df1.set_index(['DATETIME'], inplace=True)
+        #d_carry = d_carry[pd.notnull(d_carry['CARRY'])]
+        carry_carry_contract_df = carry_carry_contract_df[pd.notnull(carry_carry_contract_df['CARRY'])]
+        #df1 = d_carry[['CARRY']].copy()
+        df1 = carry_carry_contract_df[['CARRY']].copy()
+        df1.rename(columns={'CARRY': 'PRICE'}, inplace=True)
+
+        carry_price_contract_df = carry_price_contract_df[pd.notnull(carry_price_contract_df['PRICE'])]
+        #df2.set_index(['DATETIME'], inplace=True)
+        df2 = carry_price_contract_df[['PRICE']].copy()
+        # determine pre-splice date
+        pre_splice_date = df2[-1:].index.values[0]
+        splice_date = carry_df.loc[pre_splice_date:][1:2].index.values[0]
+        if not splice_date in df1.index:
+            # Must compute splice_date value and add it to df2
+            # Get the splice delta from the <panama price> - <raw price> on pre_splice_date
+            # ... get the <panama price> from in price_df and compute delta on pre_splice_date
+            pre_splice_date_raw_price = carry_df.loc[pre_splice_date:][0:1]['PRICE'][0]
+            pre_splice_date_adj_price = price_df.loc[pre_splice_date:][0:1]['PRICE'][0]
+            splice_delta = pre_splice_date_adj_price - pre_splice_date_raw_price
+            # *** the adjusted price was added to the raw price, so it must be taken away from the
+            # *** splice_date price to get the splice date raw price
+            splice_date_price = price_df.loc[splice_date:][0:1]['PRICE'][0]  # This was splice price
+            splice_date_raw_price = splice_date_price - splice_delta
+
+            # df1.drop(['CARRY', 'CARRY_CONTRACT', 'PRICE_CONTRACT'], 1, inplace=True)  # without splice date row
+            # df2.drop(['CARRY', 'CARRY_CONTRACT', 'PRICE_CONTRACT'], 1, inplace=True)  # without splice date row
+            splice_date_row_df = carry_df.loc[splice_date:][0:1].drop(['CARRY', 'CARRY_CONTRACT', 'PRICE_CONTRACT'], 1)
+            splice_date_row_df['PRICE'] = round(splice_date_raw_price, 3)
+            df1 = df1.append(df2)
+            df1 = df1.append(splice_date_row_df)
+        else:
+            df1 = df1.append(df2)
+        df1.sort_index(inplace=True)
+        return df1
+    else:
+        assert False, market + contract + " no legacy data found for contract!"
+
+
+
+
+def get_raw_data(engine, client, mkt_ser, maturity, start_date, end_date, match):
+    """
+
+    :param engine:
+    :param client:
+    :param mkt_ser:
     :param maturity:
-    :param start_date: date maturity starts in panama stream
-    :param end_date: date the next maturity starts in panama stream. The current maturity is only used to calculate delta
+    :param start_date:
+    :param end_date:
     :param match:
-    :param initialize:
-    :return:
-    '''
+    :return: use_df, raw data from either quandl, IB or z_legacy...
+
+    Before current month: Get settlement history from Quandl, if suspect, before July2017 retrieve from z_legacy...
+    From current month on: Get settlement prices from IB, if not from Quandl
+    i.e. Always get quandl data..
+    before today compare quandl with legacy ...
+    after today: compare quandl with IB ...
+    """
     import datetime
+    if pd.isnull(end_date):
+        end_date_plus = None
+    else:
+        end_date_plus = end_date + datetime.timedelta(1)
+    yesterBD = pd.datetime.today() - pd.tseries.offsets.BDay(1)
+    current_contract = datetime.date.today().strftime('%Y%m')
+    if not pd.isnull(start_date):
+        start_date_alt = datetime.datetime(start_date.year, start_date.month, start_date.day, 23)
+    if not pd.isnull(end_date):
+        end_date_alt = datetime.datetime(end_date.year, end_date.month, end_date.day, 23)
+
+    if pd.isnull(start_date):
+        start_string = None
+    else:
+        start_string = str(start_date)
+    if pd.isnull(end_date):
+        end_string = None
+    else:
+        end_string = str(end_date_plus)
+
     symbol = mkt_ser['CARVER']
-    table = symbol.lower() + maturity
-    print("Downloading symbol: ", symbol, "maturity: ", maturity)
+    # Get quandl
     try:
         quandl_df = qndl_download(mkt_ser, maturity)
-        new_df = quandl_df
-        quandl_request = True
-        #print(quandl_df.tail(4))
-    except Exception as e:
-        print(e, maturity, "Can not download data from quandl ")
-    else:
-        # Ensure match if required
-        if check_data_ok(symbol, quandl_df, start_date, end_date, match):
-            to_store_df = new_df.copy()
-            to_store_df.reset_index(inplace=True)
-            to_store_df.to_sql(name=table, con=engine, if_exists='replace', index=False)
 
-            return quandl_df
+        if isinstance(quandl_df, pd.DataFrame):
+            qev_df = quandl_df[start_string:end_string].resample("B").last()
+            quandl_request_frame = True
+            len_quandl = len(qev_df)
+            print("IB maturity: ", maturity, ": Quandl_length: ", len_quandl)
+        else:
+            quandl_request_frame = False
+
+    except Exception as e:
+        quandl_request_frame = False
+        print(e, maturity, "Can not download data from quandl ")
+
+
+    if int(maturity) < int(current_contract):
+        # Use quandl - or alternatively legacy...
+        legacy_df = get_raw_legacy_data(engine, symbol, maturity)
+        if isinstance(legacy_df, pd.DataFrame):
+            legacy_request_frame = True
+            lev_df = legacy_df[start_string:end_string].resample("B").last()
+            len_legacy = len(lev_df)
+            print("Legacy maturity: ", maturity, "legacy_length: ", len_legacy)
+        else:
+            legacy_request_frame = False
+
+        if not quandl_request_frame and not legacy_request_frame:
+            assert False, symbol + maturity + " no download data or legacy data"
+        else:
+            if match:
+            # Check whethere start and end dates are passed.
+                if yesterBD <= start_date : # No Match Necessary
+                    # if both loads exist with data_start, use longest
+                    if (legacy_request_frame and quandl_request_frame):
+                        if len_legacy > len_quandl:
+                            use_df = legacy_df.copy(); print("Using Legacy")
+                        else:
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                    # Or use whichever exists...
+                    if legacy_request_frame and not quandl_request_frame:
+                        use_df = legacy_df.copy(); print("Using Legacy")
+                    if quandl_request_frame and not legacy_request_frame:
+                        use_df = quandl_df.copy(); print("Using Quandl")
+
+                if start_date < yesterBD and yesterBD <= end_date: # start_date must be in load or cry foul
+                    if (legacy_request_frame and quandl_request_frame):
+                        if (start_date in legacy_df.index or start_date_alt in legacy_df.index) and \
+                                (start_date in qev_df.index or start_date_alt in qev_df.index):
+                            # use legacy if it has more rows.
+                            if len_legacy > len_quandl:
+                                use_df = legacy_df.copy(); print("Using Legacy")
+                            else:
+                                use_df = quandl_df.copy(); print("Using Quandl")
+                        if (start_date in legacy_df.index or start_date_alt in legacy_df.index) and \
+                                (not start_date in qev_df.index and not start_date_alt in qev_df.index):
+                             use_df =  legacy_df.copy()
+                        if (start_date in qev_df.index or start_date_alt in qev_df.index) and \
+                                (not start_date in legacy_df.index and not start_date_alt in legacy_df.index) :
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                        if (not start_date in legacy_df.index and not start_date_alt in legacy_df.index) and \
+                                (not start_date in qev_df.index and not start_date_alt in qev_df.index):
+                            assert False, symbol + maturity + str(start_date) + "missing in both legacy and quandl loads"
+                    if (legacy_request_frame and not quandl_request_frame):
+                        if start_date in legacy_df.index or start_date_alt in legacy_df.index:
+                            use_df = legacy_df.copy(); print("Using Legacy")
+                        else:
+                            assert False, symbol + maturity + str(start_date) + "missing in legacy load"
+                    if ( quandl_request_frame and not legacy_request_frame):
+                        if start_date in quandl_df.index or start_date_alt in quandl_df.index:
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                        else:
+                            assert False, symbol + maturity + str(start_date) + "missing in quandl load"
+
+                if end_date < yesterBD: # Both start_date and end_date should match or CRY foul!!
+                    if (legacy_request_frame and quandl_request_frame):
+                        if (start_date in legacy_df.index or start_date_alt in legacy_df.index) and \
+                                (start_date in qev_df.index or start_date_alt in qev_df.index) and \
+                                (end_date in legacy_df.index or end_date_alt in legacy_df.index) and \
+                                (end_date in qev_df.index or end_date_alt in qev_df.index):
+                            # use legacy if it has more rows.
+                            if len_legacy > len_quandl:
+                                use_df = legacy_df.copy(); print("Using Legacy")
+                            else:
+                                use_df = quandl_df.copy(); print("Using Quandl")
+                        elif (start_date in legacy_df.index or start_date_alt in legacy_df.index) and \
+                                (end_date in legacy_df.index or end_date_alt in legacy_df.index) and \
+                             ((not start_date in qev_df.index and not start_date_alt in qev_df.index) or \
+                                      (not end_date in qev_df.index and not end_date_alt in qev_df.index)):
+                            use_df = legacy_df.copy(); print("Using Legacy")
+                        elif (start_date in qev_df.index or start_date_alt in qev_df.index) and \
+                                (end_date in qev_df.index or end_date_alt in qev_df.index) and \
+                                ((not start_date in legacy_df.index and not start_date_alt in legacy_df.index) or \
+                            (not end_date in legacy_df.index and not end_date_alt in legacy_df.index)):
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                        else:
+                            # Reject all other outcomes
+                            assert False, symbol + maturity + "either start or end dates missing in both quandl and legacy loads"
+                    if (legacy_request_frame and not quandl_request_frame):
+                        if (start_date in legacy_df.index or start_date_alt in legacy_df.index) and \
+                                (end_date in legacy_df.index or end_date_alt in legacy_df.index) :
+                            use_df = legacy_df.copy(); print("Using Legacy")
+                        else:
+                            assert False, symbol + maturity + str(start_date) + "missing in legacy load"
+                    if (quandl_request_frame and not legacy_request_frame):
+                        if (start_date in quandl_df.index or start_date_alt in quandl_df.index) and \
+                                (end_date in quandl_df.index or end_date_alt in quandl_df.index):
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                        else:
+                            assert False, symbol + maturity + str(start_date) + "missing in quandl load"
+
+            else:   # if match: ... No match necessary - Simply use quandl if it has more rows.
+                if (legacy_request_frame and quandl_request_frame) :
+                    if len_quandl >= len_legacy:
+                        use_df = quandl_df.copy(); print("Using Quandl") ; print("Using Quandl")
+                    else:
+                        use_df = legacy_df.copy(); print("Using Legacy")
+                elif legacy_request_frame and not quandl_request_frame:
+                    use_df = legacy_df.copy(); print("Using Legacy")
+                elif quandl_request_frame and not legacy_request_frame:
+                    use_df = quandl_df.copy(); print("Using Quandl")
+        return use_df
+    else:           # if int(maturity) < int(current_contract)
+        ib_request = False
+        try:
+            #ib_df = ib_download(client, mkt_ser, maturity, end_date_plus)
+            ib_df = ib_download(client, mkt_ser, maturity, yesterBD)
+            # return as much raw data as possible i.e. ib_df rather than ibev_df (just used to check against quandl for gaps in data)
+            if isinstance(ib_df, pd.DataFrame):
+                ib_df.set_index(pd.to_datetime(ib_df.index), inplace=True)
+                ib_df[str(start_date):str(end_date_plus)].resample("B").last()
+                ibev_df = ib_df[str(start_date):str(end_date_plus)].resample("B").last()
+                ib_request_frame = True
+                len_ib = len(ibev_df) # to check against quandl load for splice range...
+                print("IB maturity: ", maturity, " IB length: ", len_ib)
+            else:
+                ib_request_frame = False
+        except Exception as e:
+            ib_request_frame = False
+            ib_request = False
+
+        if not quandl_request_frame and not ib_request_frame:
+            assert False, symbol + maturity + " no download data or legacy data"
+        else:
+            if match:
+            # Check whethere start and end dates are passed.
+                if yesterBD <= start_date : # No Match Necessary
+                    # if both loads exist with data_start, use longest
+                    if (ib_request_frame and quandl_request_frame):
+                        if len_ib >= len_quandl:
+                            use_df = ib_df.copy(); print("Using IB")
+                        else:
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                    # Or use whichever exists...
+                    if ib_request_frame and not quandl_request_frame:
+                        use_df = ib_df.copy(); print("Using IB")
+                    if quandl_request_frame and not ib_request_frame:
+                        use_df = quandl_df.copy(); print("Using Quandl")
+
+                if start_date < yesterBD and yesterBD <= end_date: # start_date must be in load or cry foul
+                    if (ib_request_frame and quandl_request_frame):
+                        if (start_date in ibev_df.index or start_date_alt in ibev_df.index) and \
+                                (start_date in qev_df.index or start_date_alt in qev_df.index):
+                            # use quandl if it has more rows.
+                            if len_ib >= len_quandl:
+                                use_df = ib_df.copy(); print("Using IB")
+                            else:
+                                use_df = quandl_df.copy(); print("Using Quandl")
+                        if (start_date in ibev_df.index or start_date_alt in ibev_df.index) and \
+                                (not start_date in qev_df.index and not  start_date_alt in qev_df.index)  :
+                             use_df =  ib_df.copy()
+                        if (start_date in qev_df.index or start_date_alt in qev_df.index) and \
+                                (not start_date in ibev_df.index and not start_date_alt in ibev_df.index):
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                        if (not start_date in ibev_df.index and not start_date_alt in ibev_df.index) and \
+                                    (not start_date in qev_df.index and not start_date_alt in qev_df.index):
+                            assert False, symbol + maturity + str(start_date) + "missing in both ib and quandl loads"
+                    if (ib_request_frame and not quandl_request_frame):
+                        if start_date in ibev_df.index or start_date_alt in ibev_df.index :
+                            use_df = ib_df.copy(); print("Using IB")
+                        else:
+                            assert False, symbol + maturity + str(start_date) + "missing in ib load"
+                    if ( quandl_request_frame and not ib_request_frame):
+                        if start_date in quandl_df.index or start_date_alt in quandl_df.index:
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                        else:
+                            assert False, symbol + maturity + str(start_date) + "missing in quandl load"
+
+                if end_date < yesterBD: # Both start_date and end_date should match or CRY foul!!
+                    if (ib_request_frame and quandl_request_frame):
+                        if (start_date in ibev_df.index or start_date_alt in ibev_df.index) and \
+                                (start_date in qev_df.index or start_date_alt in qev_df.index) and \
+                                        (end_date in ibev_df.index or end_date_alt in ibev_df.index) and \
+                                                (end_date in qev_df.index or end_date_alt in qev_df.index):
+                            # use legacy if it has more rows.
+                            if len_ib >= len_quandl:
+                                use_df = ib_df.copy(); print("Using IB")
+                            else:
+                                use_df = quandl_df.copy(); print("Using Quandl")
+                        elif (start_date in ibev_df.index or start_date_alt in ibev_df.index) and \
+                                (end_date in ibev_df.index or end_date_alt in ibev_df.index) and \
+                           ((not start_date in qev_df.index and not start_date_alt in qev_df.index) or \
+                                     (not end_date in qev_df.index and not end_date_alt in qev_df.index) ):
+                            use_df = ib_df.copy(); print("Using IB")
+                        elif (start_date in quandl_df.index or start_date_alt in quandl_df.index) and \
+                                (end_date in quandl_df.index or end_date_alt in quandl_df.index) and \
+                           ((not start_date in qev_df.index and not start_date_alt in qev_df.index) or \
+                                     (not end_date in qev_df.index and not end_date_alt in qev_df.index)):
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                        else:
+                            # Reject all other outcomes
+                            assert False, symbol + maturity + "either start or end dates missing in both quandl and legacy loads"
+                    if (ib_request_frame and not quandl_request_frame):
+                        if (start_date in ibev_df.index or start_date_alt in ibev_df.index) and \
+                                (end_date in ibev_df.index or end_date_alt in ibev_df.index):
+                            use_df = ib_df.copy(); print("Using IB")
+                        else:
+                            assert False, symbol + maturity + str(start_date) + "missing in ib load"
+
+                    if (quandl_request_frame and not ib_request_frame ):
+                        if (start_date in quandl_df.index or start_date_alt in quandl_df.index) and \
+                                (end_date in quandl_df.index or end_date_alt in quandl_df.index):
+                            use_df = quandl_df.copy(); print("Using Quandl")
+                        else:
+                            assert False, symbol + maturity + str(start_date) + "missing in quandl load"
+
+            else:   # No match necessary - Simply use quand if it has more rows.
+                if (ib_request_frame and quandl_request_frame) :
+                    if len_ib >= len_quandl:
+                        use_df = ib_df.copy(); print("Using IB")
+                    else:
+                        use_df = quandl_df.copy(); print("Using Quandl")
+                elif ib_request_frame and not quandl_request_frame:
+                    use_df = ib_df.copy(); print("Using IB")
+                elif quandl_request_frame and not ib_request_frame:
+                    use_df = quandl_df.copy(); print("Using Quandl")
+        return use_df
 
 
 def get_raw_data_update(engine, mkt_ser, maturity, start_date, end_date, match):
@@ -366,11 +744,11 @@ def get_raw_data_update(engine, mkt_ser, maturity, start_date, end_date, match):
         db_request = True
         if last_settlement_date >= end_date:
             if match:
-                if start_date != "NaT":
+                if start_date == start_date:
                     if start_date.date() < last_settlement_date.date() and not \
                             (start_date in table_df.index or start_date_alt in table_df.index):
                         assert False, maturity + ": Start splice date is missing in database data"
-                if end_date != "NaT":
+                if end_date == end_date:
                     if end_date.date() < last_settlement_date.date() and not \
                             (end_date in table_df.index or end_date_alt in table_df.index):
                         assert False, maturity + ": End splice date is missing in database data"
@@ -383,7 +761,7 @@ def get_raw_data_update(engine, mkt_ser, maturity, start_date, end_date, match):
             quandl_df = qndl_download(mkt_ser, maturity)
             new_df = quandl_df
             quandl_request = True
-            #print(quandl_df.tail(4))
+            # print(quandl_df.tail(4))
         except Exception as e:
             print(e, maturity, "Can not download data from quandl ")
             assert False, maturity
@@ -401,6 +779,7 @@ def get_raw_data_update(engine, mkt_ser, maturity, start_date, end_date, match):
                     print("Can't access database", table)
                     assert False, "Check database..."
                 return new_df
+
 
 def get_active_price_and_carry(engine, mkt_ser):
     symbol = mkt_ser['CARVER']
@@ -423,8 +802,9 @@ def get_active_price_and_carry(engine, mkt_ser):
     except Exception as e:
         print("Can't access table: ", price_table, ": skipping market: ",symbol)
         return(None, None)
-    #curr_price_contract = carry_df[-1:]['PRICE_CONTRACT'][0]
+    # curr_price_contract = carry_df[-1:]['PRICE_CONTRACT'][0]
     return (price_df,carry_df)
+
 
 def set_active_price_and_carry(engine, mkt_ser, price_df, carry_df):
     symbol = mkt_ser['CARVER']
@@ -445,36 +825,79 @@ def set_active_price_and_carry(engine, mkt_ser, price_df, carry_df):
         print("Can't access database", carrydata_table)
         assert False, "Check database..."
 
-def get_splice_data(engine, mkt_ser, row, initialize):
+
+def set_raw_data(engine, table, df, append):
+
+    if append:
+        try:
+            current_df = pd.read_sql_table(table_name=table, \
+                                         con=engine, index_col=['DATETIME'],
+                                         parse_dates=['DATETIME'])
+
+        except Exception as e:
+            print(e, " Can't access table: ", table, ":: Overwriting")
+        else:
+            if len(current_df) > 0:
+                current_df['HOURS'] = current_df.index.map(lambda x: x.hour)
+                closing_prices = current_df[(current_df['HOURS'] == 0) | (current_df['HOURS'] == 23)]
+                last_settlement_date = closing_prices[-1:].index[0]
+                df_toadd = df[last_settlement_date:][1:]
+                if len(df_toadd) > 0:
+                    df = current_df.append(df_toadd)
+
+    try:
+        to_store_df = df.copy()
+        to_store_df.reset_index(inplace=True)
+        to_store_df.to_sql(name=table, con=engine, if_exists='replace', index=False)
+    except:
+        print(e, " Can't access database", table)
+        assert False, "Check database..."
+
+
+def get_splice_data(engine, client, mkt_ser, row, initialize):
     import datetime
 
+    symbol = mkt_ser['CARVER']
+
     carry_mat = str(row.CARRY_CONTRACT)
+    carry_table = symbol.lower() + carry_mat
     price_mat = str(row.PRICE_CONTRACT)
+    price_table = symbol.lower() + price_mat
     start_date = row.DATETIME
     end_date = row.END_DATETIME
+    if pd.isnull(end_date):
+        end_date = datetime.datetime(2099, 1, 1)
     today = datetime.datetime.now()
     if not "end_date" in locals():
         end_date = today
 
     if initialize:
-        price_df = get_raw_data_initialize(engine, mkt_ser,price_mat, start_date, end_date, True)
-        carry_df = get_raw_data_initialize(engine, mkt_ser, carry_mat, start_date, end_date, False)
-    else:
+        append = False          # overwrite any existing table
+        price_df = get_raw_data(engine, client, mkt_ser,price_mat, start_date, end_date, True)
+        set_raw_data(engine, price_table, price_df, append)
 
-        price_df = get_raw_data_update(engine, mkt_ser, price_mat, start_date, end_date, True)
-        carry_df = get_raw_data_update(engine, mkt_ser, carry_mat, start_date, end_date, False)
+        carry_df = get_raw_data(engine, client, mkt_ser, carry_mat, start_date, end_date, False)
+        set_raw_data(engine, carry_table, carry_df, append)
+
+    else:
+        # first get current db raw data and then update with download df,
+        append = True
+        price_df = get_raw_data(engine, client, mkt_ser, price_mat, start_date, end_date, True)
+        set_raw_data(engine, price_table, price_df, append)
+
+        carry_df = get_raw_data(engine, client, mkt_ser, carry_mat, start_date, end_date, False)
+        set_raw_data(engine, carry_table, carry_df, append)
 
 
     return(price_df,carry_df)
 
 
-
-def check_raw_data_downloads_v2(engine, mkt_ser, rolls, initialize):
-    '''
+def check_raw_data_downloads_v2(engine, client, mkt_ser, rolls, initialize):
+    """
     :param engine:
     :param mkt_ser:
     :param rolls:
-    :return: list of CARRY & PRICE dataframes corresponding to each splice date
+    :return: streams_collection of CARRY & PRICE dataframes corresponding to each splice date
     # For past maturities, only check that start and end dates are available for PRICE and CARRY
     #   Attempt to download both from Quandl
     #   Assert error if still a PRICE splice date is missing.
@@ -483,7 +906,7 @@ def check_raw_data_downloads_v2(engine, mkt_ser, rolls, initialize):
     #   For PRICE matuirty get up to the minute data
     #   Assert error if a start data in the past is missing
     #   Ignore future splice dates
-    '''
+    """
 
     import datetime
     symbol = mkt_ser['CARVER']
@@ -491,27 +914,26 @@ def check_raw_data_downloads_v2(engine, mkt_ser, rolls, initialize):
     rolls_copy['END_DATETIME'] = rolls_copy['DATETIME']
      # Make copy to upshift END_DATETIME
     rolls_copy.END_DATETIME = rolls_copy.END_DATETIME.shift(-1)
-    list = []
+    streams_collection = []
     for row in rolls_copy.itertuples():
         # get_splice_mats(row)
-        (price_df, carry_df) = get_splice_data(engine, mkt_ser, row, initialize)
-        list.append([row, price_df, carry_df])
-    return list
+        (price_df, carry_df) = get_splice_data(engine, client, mkt_ser, row, initialize)
+        streams_collection.append([row, price_df, carry_df])
+    return streams_collection
 
 
-
-def initialize_series(engine, mkt_ser, rolls ):
+def initialize_series(engine, client, mkt_ser, rolls ):
     import datetime
     initialize = True
-    list = check_raw_data_downloads_v2(engine, mkt_ser, rolls, initialize)
-    # list has list of [schedule, price_df, carry_df] where schedule is (DATETIME, CARRY_CONTRACT & PRICE_CONTRACT)
+    streams_collection = check_raw_data_downloads_v2(engine, client, mkt_ser, rolls, initialize)
+    # streams_collection has list of [schedule, price_df, carry_df] where schedule is (DATETIME, CARRY_CONTRACT & PRICE_CONTRACT)
     # First row is base
     today_asdate = datetime.date.today()
     today_asdatetime = datetime.datetime(today_asdate.year, today_asdate.month, today_asdate.day)
     count = 0
     coll = []
 
-    for row in list:
+    for row in streams_collection:
         splice_date = row[0].DATETIME
         if splice_date < today_asdatetime:
             price_mat = row[0].PRICE_CONTRACT
@@ -554,16 +976,31 @@ def initialize_series(engine, mkt_ser, rolls ):
         coll.append(spliced_price)
     return coll
 
-def update_current_maturities(row, curr_price, curr_carry):
 
-    # First get the current price and carry series, update them with current mat
+def update_current_maturities(engine, client, mkt_ser, price_mat,carry_mat, curr_price, curr_carry):
+    """
+
+    :param engine: comms engine to database
+    :param mkt_ser:
+    :param price_mat: PRICE maturity
+    :param carry_mat: CARRY maturity
+    :param curr_price: panama stitched price strean
+    :param curr_carry: stitched carry stream
+    :return:
+    """
+
+    # First get the current price and carry raw data, update them with current mat
     # and return the two as a tuple...
     import datetime
 
-    price_mat = row[0].PRICE_CONTRACT
-    carry_mat = row[0].CARRY_CONTRACT
-    price_df = row[1].resample("B").last()
-    carry_df = row[2].resample("B").last()
+    q_price_df = get_raw_data(engine, client, mkt_ser, price_mat, None, None, False)
+    q_carry_df = get_raw_data(engine, client, mkt_ser, carry_mat, None, None, False)
+    # Add the latest updates... new series 'spliced..' are now ready for any splicing
+    pretty_print("Current price mat: " + price_mat, curr_price, 0, 5)
+    pretty_print("Current carry mat: " + carry_mat, curr_carry, 0, 5)
+
+    price_df = q_price_df.resample("B").last()
+    carry_df = q_carry_df.resample("B").last()
     temp_df = curr_price.copy()
     temp_df['HOURS'] = temp_df.index.map(lambda x: x.hour)
     closing_prices = temp_df[(temp_df['HOURS'] == 0) | (temp_df['HOURS'] == 23)]
@@ -582,8 +1019,8 @@ def update_current_maturities(row, curr_price, curr_carry):
         carry_toadd["PRICE_CONTRACT"] = price_mat
         carry_toadd.index.names = ['DATETIME']
         new_carry_df = curr_carry.append(carry_toadd)
-        return (new_price_df, new_carry_df)  ## return updated series..
-    return(curr_price, curr_carry) ## no new updates - simply return inputs
+        return (new_price_df, new_carry_df)  # return updated series..
+    return(curr_price, curr_carry) # no new updates - simply return inputs
 
 
 def get_curr_rolls_and_mats(mkt_ser, rolls, curr_carry_df):
@@ -592,10 +1029,12 @@ def get_curr_rolls_and_mats(mkt_ser, rolls, curr_carry_df):
 
     curr_price_mat = curr_carry_df[-1:].iloc[0]['PRICE_CONTRACT']
     curr_carry_mat = curr_carry_df[-1:].iloc[0]['CARRY_CONTRACT']
+    # date of last roll is the date curr_price_mat first appears in curr_carry_df, i.e. take that row's index
     last_splice_datetime = curr_carry_df[curr_carry_df['PRICE_CONTRACT'] == curr_price_mat][0:1].index[0]
     last_splice_date = datetime.datetime(last_splice_datetime.year, last_splice_datetime.month,
                                          last_splice_datetime.day)
-
+    # Now check rolls for that date, if found usable rolls are all rolls after that one. if not there are NO
+    # usable rolls.
     found = False
     for row in rolls.itertuples():
         if row.DATETIME == last_splice_date:
@@ -606,15 +1045,16 @@ def get_curr_rolls_and_mats(mkt_ser, rolls, curr_carry_df):
         usable_rolls = rolls[(rolls['DATETIME'] != rolls['DATETIME'])] # empty dataframe, no rolling
     return(usable_rolls, curr_price_mat, curr_carry_mat)
 
-def update_series(engine, mkt_ser, rolls ):
-    '''
+
+def update_series(engine, client, mkt_ser, rolls ):
+    """
     :param engine:
     :param mkt_ser:
     :param rolls:
     :return: list of spliced PRICE and CARRY streams
     Assumes PRICE and CARRY streams are in the database engine. Use rolls to determine missing entries and perform
     updates and any required stitching
-    '''
+    """
     # 1. Find current price and carry mats (curr_price_mat, curr_carry_mat) - current active roll
     # 2. from active roll, determine any due rolls..
     # 3. Update raw data
@@ -622,39 +1062,24 @@ def update_series(engine, mkt_ser, rolls ):
     # 5. Update any other due rolls
 
     import datetime
-    from collections import namedtuple
     # Check the current PRICE and CARRY... if none exist, skip the symbol
-    (curr_price_df, curr_carry_df) = get_active_price_and_carry(engine,mkt_ser)
+    (curr_price_df, curr_carry_df) = get_active_price_and_carry(engine, mkt_ser)
     if not isinstance(curr_price_df, pd.DataFrame) or not isinstance(curr_carry_df, pd.DataFrame):
         return
 
     # From CARRY stream determine the current PRICE and CARRY contracts and the usable_rolls
     (usable_rolls, curr_price_mat, curr_carry_mat) = get_curr_rolls_and_mats(mkt_ser, rolls, curr_carry_df)
 
-    # **************************************************************************************
     # UPDATE Current maturities
     #  Get all raw data for PRICE and CARRY contracts and then update current maturities
     # **** This corresponds to raw data for DAILY UPDATES!!!!
-    # ... download contracts from Quandl/IB
-    q_price_df = get_raw_data_initialize(engine, mkt_ser, curr_price_mat, None, None, False)
-    q_carry_df = get_raw_data_initialize(engine, mkt_ser, curr_carry_mat, None, None, False)
-    myNamedTuple = namedtuple('myNamedTuple', 'PRICE_CONTRACT CARRY_CONTRACT')
-    maturities = myNamedTuple(curr_price_mat, curr_carry_mat)
-    arr = [maturities, q_price_df, q_carry_df]
-    # Add the latest updates... new series 'spliced..' are now ready for any splicing
-    pretty_print("Current price mat: " + curr_price_mat, curr_price_df, 0, 5)
-    pretty_print("Current carry mat: " + curr_carry_mat, curr_carry_df, 0, 5)
-    (spliced_price, spliced_carry) = update_current_maturities(arr, curr_price_df, curr_carry_df)
-    # *****************************************************************************************
+    (spliced_price, spliced_carry) = update_current_maturities(engine, client, mkt_ser, curr_price_mat, curr_carry_mat, curr_price_df, curr_carry_df)
 
-
-
-    # **************************************************************************************
     # PERFORM any due rolls
     # 1. Update any data not up to date in database. Return a list of all
     # 2.
     initialize = False
-    list = check_raw_data_downloads_v2(engine, mkt_ser, usable_rolls, initialize)
+    list = check_raw_data_downloads_v2(engine, client, mkt_ser, usable_rolls, initialize)
     count = 0
     today_asdate = datetime.date.today()
     today_asdatetime = datetime.datetime(today_asdate.year, today_asdate.month, today_asdate.day)
@@ -691,6 +1116,41 @@ def update_series(engine, mkt_ser, rolls ):
 
     # Set the database table
     set_active_price_and_carry(engine, mkt_ser, spliced_price, spliced_carry)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
