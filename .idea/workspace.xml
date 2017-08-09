@@ -2,113 +2,23 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/test.py" line="15" />
-    <bookmark url="file://$PROJECT_DIR$/dbutils/panama.py" line="1209" />
+    <bookmark url="file://$PROJECT_DIR$/dbutils/panama.py" line="1239" />
     <bookmark url="file://$PROJECT_DIR$/test_database.py" line="114" />
     <bookmark url="file://$PROJECT_DIR$/load_legacy.py" line="21" />
-    <bookmark url="file://$PROJECT_DIR$/dbutils/panama.py" line="683" />
+    <bookmark url="file://$PROJECT_DIR$/dbutils/panama.py" line="695" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5cc9a389-22d0-4a51-8d71-7407259a1578" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/AEX_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/AEX_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/AUDUSDfx.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/AUD_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/AUD_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/BOBL_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/BOBL_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/BTP_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/BTP_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/BUND_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/BUND_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/CAC_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/CAC_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/CADUSDfx.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/CHFUSDfx.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/COPPER_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/COPPER_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/CORN_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/CORN_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/CRUDE_W_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/CRUDE_W_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/EDOLLAR_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/EDOLLAR_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/EUROSTX_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/EUROSTX_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/EURUSDfx.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/EUR_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/EUR_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/GAS_US_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/GAS_US_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/GBPUSDfx.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/GBP_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/GBP_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/GOLD_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/GOLD_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/HKDUSDfx.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/JPYUSDfx.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/JPY_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/JPY_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/KOSPI_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/KOSPI_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/KR10_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/KR10_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/KR3_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/KR3_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/KRWUSDfx.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/LEANHOG_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/LEANHOG_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/LIVECOW_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/LIVECOW_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/MXP_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/MXP_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/NASDAQ_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/NASDAQ_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/NZD_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/NZD_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/OAT_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/OAT_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/PALLAD_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/PALLAD_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/PLAT_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/PLAT_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/SHATZ_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/SHATZ_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/SMI_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/SMI_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/SOYBEAN_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/SOYBEAN_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/SP500_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/SP500_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/US10_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/US10_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/US20_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/US20_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/US2_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/US2_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/US5_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/US5_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/V2X_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/V2X_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/VIX_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/VIX_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/WHEAT_carrydata.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/WHEAT_price.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/costs_analysis.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/legacycsv/instrumentconfig.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/load_legacy.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/load_roll_schedule_from_csv.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dates_study.ipynb" afterPath="$PROJECT_DIR$/dates_study.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/roll_history.csv" afterPath="$PROJECT_DIR$/admin/roll_history.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbutils/panama.py" afterPath="$PROJECT_DIR$/dbutils/panama.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/panama.ipynb" afterPath="$PROJECT_DIR$/panama.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/panama_carry_file.csv" afterPath="$PROJECT_DIR$/panama_carry_file.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/panama_price_file.csv" afterPath="$PROJECT_DIR$/panama_price_file.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/save_rolls_to_database.ipynb" afterPath="$PROJECT_DIR$/save_rolls_to_database.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_database.py" afterPath="$PROJECT_DIR$/test_database.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_marketdata.ipynb" afterPath="$PROJECT_DIR$/test_marketdata.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_IB.ipynb" afterPath="$PROJECT_DIR$/test_IB.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testinit.py" afterPath="$PROJECT_DIR$/testinit.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testupdate.py" afterPath="$PROJECT_DIR$/testupdate.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wrapper_v2.py" afterPath="$PROJECT_DIR$/wrapper_v2.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -144,50 +54,43 @@
       <file leaf-file-name="panama.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dbutils/panama.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="97" column="71" lean-forward="false" selection-start-line="97" selection-start-column="71" selection-end-line="97" selection-end-column="71" />
+            <state relative-caret-position="139">
+              <caret line="842" column="0" lean-forward="false" selection-start-line="842" selection-start-column="0" selection-end-line="842" selection-end-column="0" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
-                <marker date="1502114457397" expanded="true" signature="39806:39905" ph="..." />
-                <marker date="1502114457397" expanded="true" signature="40262:40358" ph="..." />
+                <marker date="1502245550634" expanded="true" signature="40151:40250" ph="..." />
+                <marker date="1502245550634" expanded="true" signature="40607:40703" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wrapper_v2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wrapper_v2.py">
+      <file leaf-file-name="resample.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/tseries/resample.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="119" column="22" lean-forward="false" selection-start-line="119" selection-start-column="22" selection-end-line="119" selection-end-column="22" />
+            <state relative-caret-position="145">
+              <caret line="943" column="0" lean-forward="false" selection-start-line="943" selection-start-column="0" selection-end-line="943" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="panama.ipynb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/panama.ipynb">
-          <provider selected="true" editor-type-id="ipnb-editor">
-            <state>
-              <selected id="134" />
+      <file leaf-file-name="generic.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/core/generic.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="145">
+              <caret line="4211" column="0" lean-forward="false" selection-start-line="4211" selection-start-column="0" selection-end-line="4211" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_marketdata.ipynb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_marketdata.ipynb">
-          <provider selected="true" editor-type-id="ipnb-editor">
-            <state>
-              <selected id="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dates_study.ipynb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dates_study.ipynb">
-          <provider selected="true" editor-type-id="ipnb-editor">
-            <state>
-              <selected id="28" />
+      <file leaf-file-name="load_hist_alch.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/load_hist_alch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -202,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testinit.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="testinit.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testinit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="30" lean-forward="true" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+            <state relative-caret-position="195">
+              <caret line="13" column="35" lean-forward="false" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -214,11 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testupdate.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="testupdate.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/testupdate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="75">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -238,14 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>parse</find>
-      <find>reset_index</find>
-      <find>set_inde</find>
-      <find>reindex</find>
-      <find>get_raw_data</find>
-      <find>end_date_plus</find>
-      <find>!=</find>
-      <find>==</find>
       <find>None</find>
       <find>sql</find>
       <find>set</find>
@@ -259,15 +154,23 @@
       <find>lega</find>
       <find>set_index</find>
       <find>legac</find>
-      <find>drop</find>
       <find>indexor</find>
       <find>+ start_date</find>
       <find>end_date</find>
       <find>.append</find>
       <find>using legacy</find>
-      <find>mkt_ser</find>
       <find>ibev_df.copy()</find>
       <find>qev_df.copy()</find>
+      <find>print(&quot;Using Quandl&quot;) ; print(&quot;Using Quandl&quot;)</find>
+      <find>roll_history.csv</find>
+      <find>roll_schedule</find>
+      <find>mkt_ser[</find>
+      <find>mkt_ser</find>
+      <find>CARVER</find>
+      <find>ibev_df</find>
+      <find>lower</find>
+      <find>inplace</find>
+      <find>drop</find>
     </findStrings>
     <replaceStrings>
       <replace>Date</replace>
@@ -287,14 +190,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/data/EDOLLAR_carrydata.csv" />
         <option value="$PROJECT_DIR$/data/EDOLLAR_price.csv" />
         <option value="$PROJECT_DIR$/test_updates.py" />
         <option value="$PROJECT_DIR$/newtest5.py" />
         <option value="$PROJECT_DIR$/dl_carry_compare.ipynb" />
         <option value="$PROJECT_DIR$/test_db_update.py" />
         <option value="$PROJECT_DIR$/load_hist_from_csv.py" />
-        <option value="$PROJECT_DIR$/admin/roll_history.csv" />
         <option value="$PROJECT_DIR$/ut_get_maturities.py" />
         <option value="$PROJECT_DIR$/admin/downloads/quandl_history/VIX201707.csv" />
         <option value="$PROJECT_DIR$/admin/downloads/quandl_history/VIX201705.csv" />
@@ -326,18 +227,20 @@
         <option value="$PROJECT_DIR$/pandas_learning.ipynb" />
         <option value="$PROJECT_DIR$/quick_test.py" />
         <option value="$PROJECT_DIR$/therm.py" />
-        <option value="$PROJECT_DIR$/test_IB.ipynb" />
         <option value="$PROJECT_DIR$/test_daily_update.ipynb" />
-        <option value="$PROJECT_DIR$/save_rolls_to_database.ipynb" />
         <option value="$PROJECT_DIR$/load_legacy.py" />
         <option value="$PROJECT_DIR$/wrapper_v2.py" />
         <option value="$PROJECT_DIR$/test_database.py" />
         <option value="$PROJECT_DIR$/panama.ipynb" />
         <option value="$PROJECT_DIR$/dates_study.ipynb" />
         <option value="$PROJECT_DIR$/test_marketdata.ipynb" />
-        <option value="$PROJECT_DIR$/testupdate.py" />
-        <option value="$PROJECT_DIR$/dbutils/panama.py" />
+        <option value="$PROJECT_DIR$/admin/roll_history.csv" />
+        <option value="$PROJECT_DIR$/save_rolls_to_database.ipynb" />
+        <option value="$PROJECT_DIR$/load_roll_schedule_from_csv.py" />
+        <option value="$PROJECT_DIR$/test_IB.ipynb" />
         <option value="$PROJECT_DIR$/testinit.py" />
+        <option value="$PROJECT_DIR$/dbutils/panama.py" />
+        <option value="$PROJECT_DIR$/testupdate.py" />
       </list>
     </option>
   </component>
@@ -348,9 +251,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="12" />
-    <option name="y" value="21" />
-    <option name="width" value="1496" />
+    <option name="x" value="47" />
+    <option name="y" value="23" />
+    <option name="width" value="1285" />
     <option name="height" value="979" />
   </component>
   <component name="ProjectView">
@@ -368,6 +271,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -408,9 +312,44 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="notebook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="notebook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="notebook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="notebook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".cache" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cache" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -438,25 +377,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.testinit">
-    <configuration default="false" name="quick_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="notebook" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/quick_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.testupdate">
     <configuration default="false" name="testinit" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -529,6 +450,24 @@
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="load_roll_schedule_from_csv" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="notebook" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/load_roll_schedule_from_csv.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -715,19 +654,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Python.example2" />
       <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in example2" />
-      <item index="2" class="java.lang.String" itemvalue="Python.quick_test" />
-      <item index="3" class="java.lang.String" itemvalue="Python.testinit" />
-      <item index="4" class="java.lang.String" itemvalue="Python.testupdate" />
-      <item index="5" class="java.lang.String" itemvalue="Python.load_legacy" />
-      <item index="6" class="java.lang.String" itemvalue="Python tests.Doctests in panama" />
+      <item index="2" class="java.lang.String" itemvalue="Python.testinit" />
+      <item index="3" class="java.lang.String" itemvalue="Python.testupdate" />
+      <item index="4" class="java.lang.String" itemvalue="Python.load_legacy" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Doctests in panama" />
+      <item index="6" class="java.lang.String" itemvalue="Python.load_roll_schedule_from_csv" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.testinit" />
-        <item index="1" class="java.lang.String" itemvalue="Python.testupdate" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Doctests in panama" />
-        <item index="3" class="java.lang.String" itemvalue="Python.load_legacy" />
-        <item index="4" class="java.lang.String" itemvalue="Python.quick_test" />
+        <item index="0" class="java.lang.String" itemvalue="Python.testupdate" />
+        <item index="1" class="java.lang.String" itemvalue="Python.testinit" />
+        <item index="2" class="java.lang.String" itemvalue="Python.load_roll_schedule_from_csv" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Doctests in panama" />
+        <item index="4" class="java.lang.String" itemvalue="Python.load_legacy" />
       </list>
     </recent_temporary>
   </component>
@@ -777,19 +716,19 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="12" y="21" width="1496" height="979" extended-state="0" />
-    <editor active="true" />
+    <frame x="47" y="23" width="1285" height="979" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21414004" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4862069" sideWeight="0.20188133" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36948296" sideWeight="0.7445194" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6787004" sideWeight="0.7062229" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.8231047" sideWeight="0.7062229" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34897715" sideWeight="0.79811865" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42719615" sideWeight="0.79811865" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -797,7 +736,7 @@
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.481687" sideWeight="0.49325463" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06738869" sideWeight="0.49325463" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -854,8 +793,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dbutils/panama.py</url>
-          <line>644</line>
-          <option name="timeStamp" value="229" />
+          <line>533</line>
+          <option name="timeStamp" value="241" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dbutils/panama.py</url>
+          <line>892</line>
+          <option name="timeStamp" value="242" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dbutils/panama.py</url>
+          <line>1050</line>
+          <option name="timeStamp" value="246" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -865,7 +814,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="230" />
+      <option name="time" value="249" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -877,20 +826,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/newtest5.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/new5test.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/check_notebook.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -954,13 +889,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_IB.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/envs/notebook/lib/python3.5/site-packages/quandl/get.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -975,13 +903,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/roll_history.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="28" lean-forward="true" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/roll_history_late.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -993,13 +914,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="711">
           <caret line="2407" column="0" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="2407" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/load_sys_files_from_csv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="5" column="1" lean-forward="false" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -1084,32 +998,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/save_rolls_to_database.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/load_hist_from_csv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/check.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="17" column="53" lean-forward="false" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/load_hist_alch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1138,23 +1030,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="1595" column="0" lean-forward="false" selection-start-line="1595" selection-start-column="0" selection-end-line="1595" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/load_legacy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#25#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/core/generic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="1896" column="0" lean-forward="false" selection-start-line="1896" selection-start-column="0" selection-end-line="1896" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1215,40 +1090,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testupdate.py">
+    <entry file="file://$PROJECT_DIR$/wrapper_v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1680">
+          <caret line="119" column="22" lean-forward="false" selection-start-line="119" selection-start-column="22" selection-end-line="119" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wrapper_v2.py">
+    <entry file="file://$PROJECT_DIR$/admin/roll_history.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="119" column="22" lean-forward="false" selection-start-line="119" selection-start-column="22" selection-end-line="119" selection-end-column="22" />
+        <state relative-caret-position="-20277">
+          <caret line="180" column="28" lean-forward="false" selection-start-line="180" selection-start-column="28" selection-end-line="180" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_roll_schedule_from_csv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_legacy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_hist_from_csv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_sys_files_from_csv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="5" column="1" lean-forward="false" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save_rolls_to_database.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_IB.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/tseries/resample.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="943" column="0" lean-forward="false" selection-start-line="943" selection-start-column="0" selection-end-line="943" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/pandas/core/generic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="4211" column="0" lean-forward="false" selection-start-line="4211" selection-start-column="0" selection-end-line="4211" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_hist_alch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dbutils/panama.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="97" column="71" lean-forward="false" selection-start-line="97" selection-start-column="71" selection-end-line="97" selection-end-column="71" />
+        <state relative-caret-position="139">
+          <caret line="842" column="0" lean-forward="false" selection-start-line="842" selection-start-column="0" selection-end-line="842" selection-end-column="0" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
-            <marker date="1502114457397" expanded="true" signature="39806:39905" ph="..." />
-            <marker date="1502114457397" expanded="true" signature="40262:40358" ph="..." />
+            <marker date="1502245550634" expanded="true" signature="40151:40250" ph="..." />
+            <marker date="1502245550634" expanded="true" signature="40607:40703" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testinit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="30" lean-forward="true" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+        <state relative-caret-position="195">
+          <caret line="13" column="35" lean-forward="false" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testupdate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

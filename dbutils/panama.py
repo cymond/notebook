@@ -51,8 +51,8 @@ def get_qndl_string(mkt_ser,maturity):
     year = str(maturity)[:4]
     month = str(maturity)[4:6]
     month_code = get_code_from_month(month)
-    symbol = mkt_ser['QUANDL']
-    exchange = mkt_ser['Q_EXCHANGE']
+    symbol = mkt_ser.QUANDL
+    exchange = mkt_ser.Q_EXCHANGE
     api_call_head = '{}/{}{}{}'.format(exchange, symbol, month_code, year)
     return api_call_head
 
@@ -65,14 +65,14 @@ def get_ib_contract(mkt_ser,maturity):
     '''
     from swigibpy import Contract as IBcontract
 
-    ib_multiplier = mkt_ser['MULTIPLIER']
-    ib_security_type = mkt_ser['SECTYPE']
-    ib_exchange = mkt_ser['IB_EXCHANGE']
+    ib_multiplier = mkt_ser.MULTIPLIER
+    ib_security_type = mkt_ser.SECTYPE
+    ib_exchange = mkt_ser.IB_EXCHANGE
     ibcontract = IBcontract()
-    ibcontract.symbol = mkt_ser['IB']
+    ibcontract.symbol = mkt_ser.IB
     ibcontract.secType = ib_security_type # Security Type
 
-    ibcontract.currency = mkt_ser['CURRENCY']  # Currency
+    ibcontract.currency = mkt_ser.CURRENCY  # Currency
     ibcontract.exchange = ib_exchange  # Exchange
     if ib_multiplier > 0:
         ibcontract.multiplier = str(ib_multiplier)
@@ -384,7 +384,7 @@ def get_raw_legacy_data(engine, market, contract):
         df2 = carry_price_contract_df[['PRICE']].copy()
         # determine pre-splice date
         pre_splice_date = df2[-1:].index.values[0]
-        splice_date = carry_df.loc[pre_splice_date:][1:2].index.values[0]
+        splice_date = carry_df[pd.notnull(carry_df['PRICE'])].loc[pre_splice_date:][1:2].index.values[0]
         if not splice_date in df1.index:
             # Must compute splice_date value and add it to df2
             # Get the splice delta from the <panama price> - <raw price> on pre_splice_date
@@ -431,6 +431,8 @@ def get_raw_data(engine, client, mkt_ser, maturity, start_date, end_date, match)
     before today compare quandl with legacy ...
     after today: compare quandl with IB ...
     """
+
+
     import datetime
     if pd.isnull(end_date):
         end_date_plus = None
@@ -452,7 +454,8 @@ def get_raw_data(engine, client, mkt_ser, maturity, start_date, end_date, match)
     else:
         end_string = str(end_date_plus)
 
-    symbol = mkt_ser['CARVER']
+    symbol = mkt_ser.CARVER
+    print("--------", symbol,maturity,"---------")
     # Get quandl
     try:
         quandl_df = qndl_download(mkt_ser, maturity)
@@ -568,7 +571,7 @@ def get_raw_data(engine, client, mkt_ser, maturity, start_date, end_date, match)
             else:   # if match: ... No match necessary - Simply use quandl if it has more rows.
                 if (legacy_request_frame and quandl_request_frame) :
                     if len_quandl >= len_legacy:
-                        use_df = quandl_df.copy(); print("Using Quandl") ; print("Using Quandl")
+                        use_df = quandl_df.copy(); print("Using Quandl")
                     else:
                         use_df = legacy_df.copy(); print("Using Legacy")
                 elif legacy_request_frame and not quandl_request_frame:
@@ -583,9 +586,17 @@ def get_raw_data(engine, client, mkt_ser, maturity, start_date, end_date, match)
             ib_df = ib_download(client, mkt_ser, maturity, yesterBD)
             # return as much raw data as possible i.e. ib_df rather than ibev_df (just used to check against quandl for gaps in data)
             if isinstance(ib_df, pd.DataFrame):
+                if pd.isnull(start_date):
+                    start_string = None
+                else:
+                    start_string = str(start_date)
+                if pd.isnull(end_date):
+                    end_string = None
+                else:
+                    end_string = str(end_date_plus)
                 ib_df.set_index(pd.to_datetime(ib_df.index), inplace=True)
-                ib_df[str(start_date):str(end_date_plus)].resample("B").last()
-                ibev_df = ib_df[str(start_date):str(end_date_plus)].resample("B").last()
+                #ib_df[start_string:end_string].resample("B").last()
+                ibev_df = ib_df[start_string:end_string].resample("B").last()
                 ib_request_frame = True
                 len_ib = len(ibev_df) # to check against quandl load for splice range...
                 print("IB maturity: ", maturity, " IB length: ", len_ib)
@@ -596,7 +607,8 @@ def get_raw_data(engine, client, mkt_ser, maturity, start_date, end_date, match)
             ib_request = False
 
         if not quandl_request_frame and not ib_request_frame:
-            assert False, symbol + maturity + " no download data or legacy data"
+            return pd.DataFrame([])
+            print(symbol + maturity + " no download data or legacy data")
         else:
             if match:
             # Check whethere start and end dates are passed.
@@ -718,7 +730,7 @@ def get_raw_data_update(engine, mkt_ser, maturity, start_date, end_date, match):
     ib_request = False
 
     # Get PRICE mat
-    symbol = mkt_ser['CARVER']
+    symbol = mkt_ser.CARVER
     table = symbol.lower() + maturity
 
     # Check for local database storage of raw data
@@ -782,7 +794,7 @@ def get_raw_data_update(engine, mkt_ser, maturity, start_date, end_date, match):
 
 
 def get_active_price_and_carry(engine, mkt_ser):
-    symbol = mkt_ser['CARVER']
+    symbol = mkt_ser.CARVER
     price_table = symbol.lower() + "_price"
     carrydata_table = symbol.lower() + "_carrydata"
 
@@ -807,7 +819,7 @@ def get_active_price_and_carry(engine, mkt_ser):
 
 
 def set_active_price_and_carry(engine, mkt_ser, price_df, carry_df):
-    symbol = mkt_ser['CARVER']
+    symbol = mkt_ser.CARVER
     price_table = symbol.lower() + "_price"
     carrydata_table = symbol.lower() + "_carrydata"
 
@@ -829,6 +841,8 @@ def set_active_price_and_carry(engine, mkt_ser, price_df, carry_df):
 def set_raw_data(engine, table, df, append):
 
     if append:
+        # retrieve table and add df to it... and only add rows in df that don't already exist
+        new_rows = False
         try:
             current_df = pd.read_sql_table(table_name=table, \
                                          con=engine, index_col=['DATETIME'],
@@ -836,6 +850,7 @@ def set_raw_data(engine, table, df, append):
 
         except Exception as e:
             print(e, " Can't access table: ", table, ":: Overwriting")
+            new_rows = True # will use df to overwrite
         else:
             if len(current_df) > 0:
                 current_df['HOURS'] = current_df.index.map(lambda x: x.hour)
@@ -844,20 +859,22 @@ def set_raw_data(engine, table, df, append):
                 df_toadd = df[last_settlement_date:][1:]
                 if len(df_toadd) > 0:
                     df = current_df.append(df_toadd)
-
-    try:
-        to_store_df = df.copy()
-        to_store_df.reset_index(inplace=True)
-        to_store_df.to_sql(name=table, con=engine, if_exists='replace', index=False)
-    except:
-        print(e, " Can't access database", table)
-        assert False, "Check database..."
+                    df.drop(['HOURS'],1,inplace=True)
+                    new_rows = True # will add df with new rows
+    if not append or new_rows:
+        try:
+            to_store_df = df.copy()
+            to_store_df.reset_index(inplace=True)
+            to_store_df.to_sql(name=table, con=engine, if_exists='replace', index=False)
+        except:
+            print(e, " Can't access database", table)
+            assert False, "Check database..."
 
 
 def get_splice_data(engine, client, mkt_ser, row, initialize):
     import datetime
 
-    symbol = mkt_ser['CARVER']
+    symbol = mkt_ser.CARVER
 
     carry_mat = str(row.CARRY_CONTRACT)
     carry_table = symbol.lower() + carry_mat
@@ -874,10 +891,12 @@ def get_splice_data(engine, client, mkt_ser, row, initialize):
     if initialize:
         append = False          # overwrite any existing table
         price_df = get_raw_data(engine, client, mkt_ser,price_mat, start_date, end_date, True)
-        set_raw_data(engine, price_table, price_df, append)
+        if len(price_df) > 0 :
+            set_raw_data(engine, price_table, price_df, append)
 
         carry_df = get_raw_data(engine, client, mkt_ser, carry_mat, start_date, end_date, False)
-        set_raw_data(engine, carry_table, carry_df, append)
+        if len(carry_df) > 0:
+            set_raw_data(engine, carry_table, carry_df, append)
 
     else:
         # first get current db raw data and then update with download df,
@@ -909,7 +928,9 @@ def check_raw_data_downloads_v2(engine, client, mkt_ser, rolls, initialize):
     """
 
     import datetime
-    symbol = mkt_ser['CARVER']
+    today_asdate = datetime.date.today()
+    today_asdatetime = datetime.datetime(today_asdate.year, today_asdate.month, today_asdate.day)
+    symbol = mkt_ser.CARVER
     rolls_copy = rolls.copy()
     rolls_copy['END_DATETIME'] = rolls_copy['DATETIME']
      # Make copy to upshift END_DATETIME
@@ -918,7 +939,8 @@ def check_raw_data_downloads_v2(engine, client, mkt_ser, rolls, initialize):
     for row in rolls_copy.itertuples():
         # get_splice_mats(row)
         (price_df, carry_df) = get_splice_data(engine, client, mkt_ser, row, initialize)
-        streams_collection.append([row, price_df, carry_df])
+        if row.DATETIME <= today_asdatetime:
+            streams_collection.append([row, price_df, carry_df])
     return streams_collection
 
 
@@ -1006,10 +1028,15 @@ def update_current_maturities(engine, client, mkt_ser, price_mat,carry_mat, curr
     closing_prices = temp_df[(temp_df['HOURS'] == 0) | (temp_df['HOURS'] == 23)]
     last_settlement_date = closing_prices[-1:].index[0]
     price_toadd = price_df[last_settlement_date:][1:]
+    append = True
     if len(price_toadd) > 0:
+        # Add new updates...
         end_date = price_toadd[-1:].index[0]
         end_date_r1d = end_date + datetime.timedelta(1)
         new_price_df = curr_price.append(price_df[last_settlement_date:][1:])
+        # *** update PRICE raw data
+        price_table = mkt_ser.CARVER.lower() + price_mat
+        set_raw_data(engine, price_table, new_price_df, append)
 
         carry_toadd = carry_df[last_settlement_date:end_date_r1d][1:]
         carry_toadd = pd.concat([price_toadd, carry_toadd], axis=1)
@@ -1019,6 +1046,9 @@ def update_current_maturities(engine, client, mkt_ser, price_mat,carry_mat, curr
         carry_toadd["PRICE_CONTRACT"] = price_mat
         carry_toadd.index.names = ['DATETIME']
         new_carry_df = curr_carry.append(carry_toadd)
+        # *** update CARRY raw data
+        carry_table = mkt_ser.CARVER.lower() + carry_mat
+        set_raw_data(engine, carry_table, carry_df, append)
         return (new_price_df, new_carry_df)  # return updated series..
     return(curr_price, curr_carry) # no new updates - simply return inputs
 
